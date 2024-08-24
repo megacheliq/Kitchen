@@ -1,0 +1,501 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Kitchen.Service</name>
+    </assembly>
+    <members>
+        <member name="T:Kitchen.Service.DataAccess.Abstract.IKitchenRepository">
+            <summary>
+            Интерфейс репозитория для работы с кухнями
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.DataAccess.Abstract.IKitchenRepository.GetAllAsync(Kitchen.Service.Domain.Kitchen.UseCases.Queries.AllKitchenQuery,System.Threading.CancellationToken)">
+            <summary>
+            Получить все кухни
+            </summary>
+            <param name="request">Запрос</param>
+            <param name="cancellationToken">Токен отмены</param>
+            <returns>Коллекция всех кухонь</returns>
+        </member>
+        <member name="M:Kitchen.Service.DataAccess.Abstract.IKitchenRepository.GetByIdOrDefaultAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Получить информацию по конкретной кухне
+            </summary>
+            <param name="id">Идентификатор кухни</param>
+            <param name="cancellationToken">Токен отмены</param>
+            <returns>Информация о кухне</returns>
+        </member>
+        <member name="M:Kitchen.Service.DataAccess.Abstract.IKitchenRepository.CreateAsync(Kitchen.Service.DataAccess.Models.TKitchen,System.Threading.CancellationToken)">
+            <summary>
+            Создать новую кухню
+            </summary>
+            <param name="kitchen">Кухня</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="M:Kitchen.Service.DataAccess.Abstract.IKitchenRepository.UpdateAsync(System.String,Kitchen.Service.Domain.Kitchen.Models.AddOrUpdateKitchenDto,System.Threading.CancellationToken)">
+            <summary>
+            Обновить существующую кухню
+            </summary>
+            <param name="id">Идентификатор</param>
+            <param name="dto">Модель для обновления</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="M:Kitchen.Service.DataAccess.Abstract.IKitchenRepository.DeleteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Удалить кухню по идентификатору
+            </summary>
+            <param name="id">Идентификатор кухни</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="T:Kitchen.Service.DataAccess.Abstract.IModuleRepository">
+            <summary>
+            Интерфейс репозитория для работы с модулями
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.DataAccess.Abstract.IModuleRepository.GetAllAsync(Kitchen.Service.Domain.Module.UseCases.Queries.AllModuleQuery,System.Threading.CancellationToken)">
+            <summary>
+            Получить все модули
+            </summary>
+            <param name="request">Запрос</param>
+            <param name="cancellationToken">Токен отмены</param>
+            <returns>Коллекция всех модулей</returns>
+        </member>
+        <member name="M:Kitchen.Service.DataAccess.Abstract.IModuleRepository.GetByIdOrDefaultAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Получить информацию по конкретному модулю
+            </summary>
+            <param name="id">Идентификатор</param>
+            <param name="cancellationToken">Токен отмены</param>
+            <returns>Информация о модуле</returns>
+        </member>
+        <member name="M:Kitchen.Service.DataAccess.Abstract.IModuleRepository.CreateAsync(Kitchen.Service.DataAccess.Models.TModule,System.Threading.CancellationToken)">
+            <summary>
+            Создать новый модуль
+            </summary>
+            <param name="module">Модуль</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="M:Kitchen.Service.DataAccess.Abstract.IModuleRepository.UpdateAsync(System.String,Kitchen.Service.Domain.Module.Models.AddOrUpdateModuleDto,System.Threading.CancellationToken)">
+            <summary>
+            Обновить существующий модуль
+            </summary>
+            <param name="id">Идентификатор</param>
+            <param name="dto">Модель для обновления</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="M:Kitchen.Service.DataAccess.Abstract.IModuleRepository.DeleteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Удалить модуль по идентификатору
+            </summary>
+            <param name="id">Идентификатор</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="T:Kitchen.Service.DataAccess.Models.Collections">
+            <summary>
+            Перечисление, представляющее коллекции
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.DataAccess.Models.Coordinate">
+            <summary>
+            Класс для хранения координат
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.Coordinate.X">
+            <summary>
+            Координата по X
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.Coordinate.Y">
+            <summary>
+            Координата по Y
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.DataAccess.Models.CorsSettings">
+            <summary>
+            Класс конфигурации настроек CORS
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.CorsSettings.AllowedOrigins">
+            <summary>
+            Разрешенные источники
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.DataAccess.Models.DatabaseSettings">
+            <summary>
+            Класс для конфигурации базы данных MongoDB
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.DatabaseSettings.ConnectionString">
+            <summary>
+            Строка подключения к базе данных
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.DatabaseSettings.DatabaseName">
+            <summary>
+            Название базы данных
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.DataAccess.Models.Orientation">
+            <summary>
+            Перечисление, представляющее ориентацию в пространстве
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.DataAccess.Models.PlacedModule">
+            <summary>
+            Класс для хранения установленного модуля в кухне
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.PlacedModule.Module">
+            <summary>
+            Модуль
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.PlacedModule.Coordinate">
+            <summary>
+            Координаты
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.PlacedModule.Orientation">
+            <summary>
+            Ориентация в пространстве
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.DataAccess.Models.TKitchen">
+            <summary>
+            Класс KitchenCollection представляет коллекцию кухонь
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TKitchen.Id">
+            <summary>
+            Идентификатор кухни
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TKitchen.Width">
+            <summary>
+            Ширина кухни
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TKitchen.Height">
+            <summary>
+            Высота кухни
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TKitchen.WaterPipe">
+            <summary>
+            Расположение трубы
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TKitchen.Modules">
+            <summary>
+            Список установленных модулей
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.DataAccess.Models.TModule">
+            <summary>
+            Класс ModuleCollection представляет коллекцию модулей
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TModule.Id">
+            <summary>
+            Идентификатор модуля
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TModule.Name">
+            <summary>
+            Название модуля
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TModule.Width">
+            <summary>
+            Ширина модуля
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TModule.Height">
+            <summary>
+            Высота модуля
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TModule.IsCorner">
+            <summary>
+            Является ли модуль угловым
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.DataAccess.Models.TModule.RequiresWater">
+            <summary>
+            Нужна ли модулю вода
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.Domain.Kitchen.Abstract.IKitchenValidationService">
+            <summary>
+            Интерфейс сервиса для проверки условий установки модуля
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.Domain.Kitchen.Abstract.IKitchenValidationService.ModulesOverlap(Kitchen.Service.DataAccess.Models.PlacedModule,Kitchen.Service.DataAccess.Models.PlacedModule)">
+            <summary>
+            Проверка пересекаются ли модули между собой
+            </summary>
+            <param name="existingModule">Существующий модуль</param>
+            <param name="newModule">Модуль для добавления</param>
+            <returns>Пересекаются ли модули</returns>
+        </member>
+        <member name="M:Kitchen.Service.Domain.Kitchen.Abstract.IKitchenValidationService.ModuleFitsInKitchen(Kitchen.Service.Domain.Kitchen.Models.KitchenResponse,Kitchen.Service.DataAccess.Models.PlacedModule)">
+            <summary>
+            Проверка вмещается ли модуль в кухню
+            </summary>
+            <param name="kitchen">Кухня</param>
+            <param name="module">Модуль</param>
+            <returns>Вмещается ли модуль в кухню</returns>
+        </member>
+        <member name="M:Kitchen.Service.Domain.Kitchen.Abstract.IKitchenValidationService.IsNearWaterPipe(Kitchen.Service.Domain.Kitchen.Models.KitchenResponse,Kitchen.Service.DataAccess.Models.PlacedModule,System.Double)">
+            <summary>
+            Проверка находится ли модуль рядом с источником воды
+            </summary>
+            <param name="kitchen">Кухня</param>
+            <param name="module">Модуль</param>
+            <param name="radius">Радиус, в котором должен быть источник</param>
+            <returns>Находится ли модуль рядом с источником воды</returns>
+        </member>
+        <member name="M:Kitchen.Service.Domain.Kitchen.Abstract.IKitchenValidationService.IsInCorner(Kitchen.Service.Domain.Kitchen.Models.KitchenResponse,Kitchen.Service.DataAccess.Models.PlacedModule,System.Double)">
+            <summary>
+            Проверка находится ли модуль рядом с углом
+            </summary>
+            <param name="kitchen">Кухня</param>
+            <param name="module">Модуль</param>
+            <param name="radius">Радиус поиска угла</param>
+            <returns>Находится ли модуль рядом с углом</returns>
+        </member>
+        <member name="T:Kitchen.Service.Domain.Kitchen.Models.AddOrUpdateKitchenDto">
+            <summary>
+            Класс для представления команды кухни
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.Models.AddOrUpdateKitchenDto.Width">
+            <summary>
+            Ширина
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.Models.AddOrUpdateKitchenDto.Height">
+            <summary>
+            Высота
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.Models.AddOrUpdateKitchenDto.WaterPipe">
+            <summary>
+            Расположение трубы
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.Models.AddOrUpdateKitchenDto.Modules">
+            <summary>
+            Список модулей
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.Domain.Kitchen.Models.CreateKitchenResponse">
+            <summary>
+            Класс для ответа при создании кухни
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.Domain.Kitchen.Models.KitchenResponse">
+            <summary>
+            Класс для представления ответа по взаимодействию с кухнями
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.Models.KitchenResponse.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.Models.KitchenResponse.Width">
+            <summary>
+            Ширина
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.Models.KitchenResponse.Height">
+            <summary>
+            Высота
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.Models.KitchenResponse.WaterPipe">
+            <summary>
+            Координаты трубы
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.Models.KitchenResponse.Modules">
+            <summary>
+            Список модулей
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.Domain.Kitchen.UseCases.Commands.AddModuleToKitchenCommand">
+            <summary>
+            Команда добавления модуля в кухню
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.UseCases.Commands.AddModuleToKitchenCommand.KitchenId">
+            <summary>
+            Идентификатор кухни
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.UseCases.Commands.AddModuleToKitchenCommand.ModuleId">
+            <summary>
+            Модуль кухни
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.UseCases.Commands.AddModuleToKitchenCommand.Coordinate">
+            <summary>
+            Координаты модуля
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.UseCases.Commands.AddModuleToKitchenCommand.Orientation">
+            <summary>
+            Ориентация модуля в пространстве
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.Domain.Kitchen.UseCases.Commands.AddModuleToKitchenCommandHandler.Handle(Kitchen.Service.Domain.Kitchen.UseCases.Commands.AddModuleToKitchenCommand,System.Threading.CancellationToken)">
+            <summary>
+            Обработать команду добавления модуля
+            </summary>
+            <param name="request">Команда добавления модуля</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="T:Kitchen.Service.Domain.Kitchen.UseCases.Commands.CreateKitchenCommand">
+            <summary>
+            Команда создания новой кухни
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.UseCases.Commands.CreateKitchenCommand.CommandDto">
+            <summary>
+            Данные кухни
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.Domain.Kitchen.UseCases.Commands.CreateKitchenCommandHandler.Handle(Kitchen.Service.Domain.Kitchen.UseCases.Commands.CreateKitchenCommand,System.Threading.CancellationToken)">
+            <summary>
+            Обработать команду создания кухни
+            </summary>
+            <param name="request">Команда создания кухни</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="T:Kitchen.Service.Domain.Kitchen.UseCases.Commands.DeleteKitchenCommand">
+            <summary>
+            Команда удаления кухни
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.UseCases.Commands.DeleteKitchenCommand.Id">
+            <summary>
+            Идентификатор кухни
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.Domain.Kitchen.UseCases.Commands.DeleteKitchenCommandHandler.Handle(Kitchen.Service.Domain.Kitchen.UseCases.Commands.DeleteKitchenCommand,System.Threading.CancellationToken)">
+            <summary>
+            Обработать команду удаления кухни
+            </summary>
+            <param name="request">Команда удаления кухни</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="T:Kitchen.Service.Domain.Kitchen.UseCases.Commands.UpdateKitchenCommand">
+            <summary>
+            Команда обновления кухни
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.UseCases.Commands.UpdateKitchenCommand.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.UseCases.Commands.UpdateKitchenCommand.Dto">
+            <summary>
+            Данные для обновления
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.Domain.Kitchen.UseCases.Commands.UpdateKitchenCommandHandler.Handle(Kitchen.Service.Domain.Kitchen.UseCases.Commands.UpdateKitchenCommand,System.Threading.CancellationToken)">
+            <summary>
+            Обработать команду обновления кухни
+            </summary>
+            <param name="request">Команда обновления кухни</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="T:Kitchen.Service.Domain.Kitchen.UseCases.Queries.KitchenInfoQuery">
+            <summary>
+            Запрос на получения информации по кухне по идентификатору
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.UseCases.Queries.KitchenInfoQuery.Id">
+            <summary>
+            Идентификатор
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.Domain.Kitchen.UseCases.Queries.KitchenInfoQueryHandler.Handle(Kitchen.Service.Domain.Kitchen.UseCases.Queries.KitchenInfoQuery,System.Threading.CancellationToken)">
+            <summary>
+            Обработать запрос на получение информации по кухне
+            </summary>
+            <param name="request">Запрос на получение информации</param>
+            <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="T:Kitchen.Service.Exceptions.Abstract.AbstractHttpException">
+            <summary>
+            Шаблон для реализации кастомных исключений
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.Exceptions.Abstract.IHttpException">
+            <summary>
+            Базовый интерфейс исключения
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Exceptions.Abstract.IHttpException.StatusCode">
+            <summary>
+            Код состояния HTTP
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.Exceptions.Abstract.IHttpException.GetMessage">
+            <summary>
+            Получить сообщение об исключении
+            </summary>
+            <returns>Сообщение об исключении</returns>
+        </member>
+        <member name="T:Kitchen.Service.Exceptions.Models.ExceptionConstants">
+            <summary>
+            Класс, содержащий константы сообщений об исключениях
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.Exceptions.Models.ExceptionConstants.GetMethodNotAllowedMessage(System.String)">
+            <summary>
+            Получить сообщение об ошибке "Метод не поддерживается"
+            </summary>
+            <param name="methodName">Название метода</param>
+            <returns>Сообщение</returns>
+        </member>
+        <member name="T:Kitchen.Service.Exceptions.Models.ExceptionMessageDto">
+            <summary>
+            Базовый класс для формирования моделей исключений
+            </summary>
+        </member>
+        <member name="P:Kitchen.Service.Exceptions.Models.ExceptionMessageDto.Message">
+            <summary>
+            Сообщение об исключении
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.Exceptions.Models.NoDataFoundException">
+            <summary>
+            Исключение "Нет данных, удовлетворяющих запросу"
+            </summary>
+        </member>
+        <member name="T:Kitchen.Service.Middlewares.ExceptionMiddleware">
+            <summary>
+            Милдлвар для перехвата исключений
+            </summary>
+        </member>
+        <member name="M:Kitchen.Service.Middlewares.Extensions.MiddlewareExtensions.UseJsonException(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Интеграция <see cref="!:ExceptionMidleware"/> в конвеер asp
+            </summary>
+            <param name="app">Приложение</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Kitchen.Service.Middlewares.Extensions.MiddlewareExtensions.UseConfigPathBase(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Использовать переопределение базового пути запроса
+            </summary>
+            <param name="app">Приложение</param>
+            <param name="configuration">Конфигурация</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+    </members>
+</doc>

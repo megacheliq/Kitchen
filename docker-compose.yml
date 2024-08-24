@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - kitchen_network
+
+  kitchen.service:
+    build:
+      context: ./Kitchen.Service
+    ports:
+      - "5170:80"
+    depends_on:
+      - mongo
+    networks:
+      - kitchen_network
+
+  kitchen.client:
+    build:
+      context: ./kitchen.client
+    ports:
+      - "80:80"
+    depends_on:
+      - kitchen.service
+    networks:
+      - kitchen_network
+
+volumes:
+  mongo_data:
+
+networks:
+  kitchen_network:
+    driver: bridge

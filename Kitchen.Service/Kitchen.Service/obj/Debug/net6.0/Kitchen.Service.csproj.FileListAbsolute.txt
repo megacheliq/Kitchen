@@ -53,3 +53,4 @@ C:\Users\user\source\repos\kitchen\Kitchen.Service\Kitchen.Service\bin\Debug\net
 C:\Users\user\source\repos\kitchen\Kitchen.Service\Kitchen.Service\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\user\source\repos\kitchen\Kitchen.Service\Kitchen.Service\bin\Debug\net6.0\Kitchen.Service.xml
 C:\Users\user\source\repos\kitchen\Kitchen.Service\Kitchen.Service\obj\Debug\net6.0\Kitchen.Service.xml
+C:\Users\user\source\repos\kitchen\kitchen.service\Kitchen.Service\obj\Debug\net6.0\Kitchen.Service.sourcelink.json

@@ -38,6 +38,19 @@ export const addModuleToKitchen = async (commandDto: IAddModuleDto) => {
     }
 }
 
+export const optimalPlace = async (kithenId: string) => {
+    try {
+        const response = await axiosClient.post('Kitchen/PlacePreMadeModules', {
+            kitchenId: kithenId
+        });
+        toast.success('Модули успешно размещены');
+        return response.data;
+    } catch (error: any) {
+        console.error('Failed place optimal:', error);
+        toast.error(error.response?.data?.message ||'Не удалось оптимально расположить модули');
+    }
+}
+
 export const createKitchen = async (commandDto: ICommandDto) => {
     try {
         const response = await axiosClient.post('Kitchen/Create', {

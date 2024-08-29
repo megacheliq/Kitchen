@@ -58,6 +58,14 @@ try
                       .AllowAnyMethod()
                       .AllowCredentials();
             });
+
+        options.AddPolicy("AllowAll",
+            policy =>
+            {
+                policy.AllowAnyOrigin()
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+            });
     });
 
     var app = builder.Build();
@@ -67,7 +75,8 @@ try
     app.UseSwaggerUI();
     app.UseRouting();
     app.UseJsonException();
-    app.UseCors("AllowSpecificOrigin");
+    app.UseCors("AllowAll");
+    //app.UseCors("AllowSpecificOrigin");
 
     app.MapControllers();
     app.MapHealthChecks("/healthz");

@@ -13,6 +13,8 @@ interface DialogContextType {
     setIsKitchenAlertDialogOpen: (open: boolean) => void;
     isModuleToKitchenAlertDialogOpen: boolean;
     setIsModuleToKitchenAlertDialogOpen: (open: boolean) => void;
+    isOptimalPlaceAlerDialogOpen: boolean;
+    setIsOptimalPlaceAlertDialogOpen: (open: boolean) => void;
     triggerSubmit: () => void;
     formRef: React.RefObject<HTMLFormElement>;
 }
@@ -38,6 +40,7 @@ export const DialogProvider: React.FC<DialogProviderProps> = ({ children }) => {
     const [isDeleteAlertDialogOpen, setIsDeleteAlertDialogOpen] = useState(false);
     const [isKitchenAlertDialogOpen, setIsKitchenAlertDialogOpen] = useState(false);
     const [isModuleToKitchenAlertDialogOpen, setIsModuleToKitchenAlertDialogOpen] = useState(false);
+    const [isOptimalPlaceAlerDialogOpen, setIsOptimalPlaceAlertDialogOpen] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
 
     const triggerSubmit = () => {
@@ -58,6 +61,8 @@ export const DialogProvider: React.FC<DialogProviderProps> = ({ children }) => {
             setIsKitchenAlertDialogOpen,
             isModuleToKitchenAlertDialogOpen,
             setIsModuleToKitchenAlertDialogOpen,
+            isOptimalPlaceAlerDialogOpen,
+            setIsOptimalPlaceAlertDialogOpen,
             triggerSubmit,
             formRef,
         }}>

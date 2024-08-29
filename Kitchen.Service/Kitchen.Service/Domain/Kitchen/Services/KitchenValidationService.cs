@@ -6,6 +6,26 @@ namespace Kitchen.Service.Domain.Kitchen.Services
 {
     public class KitchenValidationService : IKitchenValidationService
     {
+        public List<PlacedModule> FindOptimalPositions(KitchenResponse kitchen, List<PlacedModule> modules)
+        {
+            // Создаем список для размещенных модулей
+            var placedModules = new List<PlacedModule>();
+
+            // Разделяем модули на те, которые имеют специфические требования и те, которые не имеют
+            var modulesWithSpecificRequirements = modules
+                .Where(m => m.Module.RequiresWater || m.Module.IsCorner)
+                .ToList();
+            var otherModules = modules.Except(modulesWithSpecificRequirements).ToList();
+
+            // Сначала размещаем модули с особыми требованиями
+            PlaceOptimalModules(kitchen, modulesWithSpecificRequirements, placedModules);
+
+            // Затем размещаем остальные модули
+            PlaceOptimalModules(kitchen, otherModules, placedModules);
+
+            return placedModules;
+        }
+
         public bool ModulesOverlap(PlacedModule existingModule, PlacedModule newModule)
         {
             // Определение крайних координат существующего модуля
@@ -79,6 +99,126 @@ namespace Kitchen.Service.Domain.Kitchen.Services
 
             // Проверка, находится ли расстояние в пределах заданного радиуса
             return distance <= radius;
+        }
+
+        private List<Coordinate> GetPotentialWallPositions(KitchenResponse kitchen, PlacedModule module)
+        {
+            var positions = new List<Coordinate>();
+
+            // Определяем позиции вдоль левой и правой стен
+            for (double y = 0; y <= kitchen.Height - module.Module.Height; y += 0.1)
+            {
+                positions.Add(new Coordinate { X = 0, Y = y }); // Левый край
+                positions.Add(new Coordinate { X = kitchen.Width - module.Module.Width, Y = y }); // Правый край
+            }
+
+            // Определяем позиции вдоль верхней и нижней стен
+            for (double x = 0; x <= kitchen.Width - module.Module.Width; x += 0.1)
+            {
+                positions.Add(new Coordinate { X = x, Y = 0 }); // Верхний край
+                positions.Add(new Coordinate { X = x, Y = kitchen.Height - module.Module.Height }); // Нижний край
+            }
+
+            // Сортируем позиции так, чтобы сначала пробовать ближе к углам
+            positions = positions.OrderBy(p => p.X).ThenBy(p => p.Y).ToList();
+
+            return positions;
+        }
+
+        private void PlaceOptimalModules(KitchenResponse kitchen, List<PlacedModule> modules, List<PlacedModule> placedModules)
+        {
+            foreach (var module in modules)
+            {
+                bool placed = false;
+
+                // Получаем список возможных позиций вдоль стен
+                var potentialPositions = GetPotentialWallPositions(kitchen, module);
+
+                // Проходим по всем возможным позициям
+                foreach (var position in potentialPositions)
+                {
+                    // Сначала проверяем ориентацию модуля с длинной стороной вдоль стены
+                    var preferredOrientations = GetPreferredOrientations(kitchen, position, module);
+                    foreach (var orientation in preferredOrientations)
+                    {
+                        var workModule = new PlacedModule
+                        {
+                            Module = module.Module.Clone(),
+                            Orientation = orientation,
+                            Coordinate = position
+                        };
+
+                        if (workModule.Orientation == Orientation.Vertical)                       
+                            (workModule.Module.Width, workModule.Module.Height) = (workModule.Module.Height, workModule.Module.Width);               
+
+                        // Проверка, что модуль находится в пределах кухни
+                        if (!ModuleFitsInKitchen(kitchen, workModule))
+                            continue;
+
+                        // Проверка, что модуль не пересекается с другими модулями
+                        if (placedModules.Any(existingModule => ModulesOverlap(existingModule, workModule)))
+                            continue;
+
+                        // Проверка условий, если модуль требует воду
+                        if (module.Module.RequiresWater && !IsNearWaterPipe(kitchen, workModule, 0.5))
+                            continue;
+
+                        // Проверка условий, если модуль угловой
+                        if (module.Module.IsCorner && !IsInCorner(kitchen, workModule, 0.5))
+                            continue;
+
+                        // Если все условия выполнены, размещаем модуль
+                        placedModules.Add(new PlacedModule
+                        {
+                            Module = workModule.Module,
+                            Coordinate = new Coordinate
+                            {
+                                X = position.X,
+                                Y = position.Y
+                            },
+                            Orientation = orientation
+                        });
+                        placed = true;
+                        break;
+                    }
+
+                    if (placed)
+                        break;
+                }
+
+                if (!placed)
+                {
+                    throw new Exception($"Не удалось найти подходящее место для модуля {module.Module.Name}");
+                }
+            }
+        }
+
+        // Метод для определения предпочтительных ориентаций модуля
+        private List<Orientation> GetPreferredOrientations(KitchenResponse kitchen, Coordinate position, PlacedModule module)
+        {
+            var preferredOrientations = new List<Orientation>();
+
+            // Проверяем, на какой стене находится модуль, и выбираем предпочтительную ориентацию
+            if (position.X == 0 || position.X + module.Module.Width == kitchen.Width)
+            {
+                // Модуль вдоль левой или правой стены — предпочтительнее вертикальная ориентация
+                preferredOrientations.Add(Orientation.Vertical);
+                preferredOrientations.Add(Orientation.Horizontal);
+            }
+            else if (position.Y == 0 || position.Y + module.Module.Height == kitchen.Height)
+            {
+                // Модуль вдоль верхней или нижней стены — предпочтительнее горизонтальная ориентация
+                preferredOrientations.Add(Orientation.Horizontal);
+                preferredOrientations.Add(Orientation.Vertical);
+            }
+            else
+            {
+                // Если модуль не вдоль стен, пробуем сначала все возможные ориентации
+                preferredOrientations.Add(Orientation.Horizontal);
+                preferredOrientations.Add(Orientation.Vertical);
+            }
+
+            return preferredOrientations;
         }
     }
 }

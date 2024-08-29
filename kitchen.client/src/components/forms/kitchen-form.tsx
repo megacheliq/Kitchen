@@ -23,15 +23,13 @@ const KitchenForm: React.FC = () => {
         x: z.preprocess(
             (val) => parseFloat(val as string),
             z.number()
-                .positive("X должен быть положительным числом больше 0")
-                .refine((val) => val > 0, { message: "X должен быть больше 0" })
+                .refine((val) => val >= 0, { message: "X должен быть >= 0" })
                 .transform((val) => Math.round(val * 10) / 10)
         ),
         y: z.preprocess(
             (val) => parseFloat(val as string),
             z.number()
-                .positive("Y должен быть положительным числом больше 0")
-                .refine((val) => val > 0, { message: "Y должен быть больше 0" })
+                .refine((val) => val >= 0, { message: "Y должен быть >= 0" })
                 .transform((val) => Math.round(val * 10) / 10)
         ),
     });

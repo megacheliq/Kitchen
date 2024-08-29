@@ -33,6 +33,17 @@ namespace Kitchen.Service.Domain.Kitchen
             return await Mediator.Send(command, cancellationToken);
         }
 
+        [HttpPost("PlacePreMadeModules")]
+        public async Task<KitchenResponse> PlacePreMadeModules(PlacePreMadeModulesCommand command, CancellationToken cancellationToken = default)
+        {
+            if (command is null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
+
+            return await Mediator.Send(command, cancellationToken);
+        }
+
         [HttpPost("AddModule")]
         public async Task<KitchenResponse> AddModuleToKitchen(AddModuleToKitchenCommand command, CancellationToken cancellationToken = default)
         {

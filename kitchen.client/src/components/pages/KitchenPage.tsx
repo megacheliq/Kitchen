@@ -12,20 +12,21 @@ import {
 } from "@/components/ui/card"
 import DrawGrid from "@/components/draw-grid";
 import { useDialogContext } from "@/contexts/DialogContext";
-import KitchenModuleDialog from "../dialogs/kitchen-module-dialog";
+import KitchenModuleDialog from "@/components/dialogs/kitchen-module-dialog";
 import {
     HoverCard,
     HoverCardContent,
     HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import { Info } from "lucide-react";
+import OptimalPlaceDialog from "@/components/dialogs/optimal-place-dialog";
 
 const KitchenPage: React.FC = () => {
     const { kitchenId } = useParams<{ kitchenId: string }>();
     const navigate = useNavigate();
     const [kitchen, setKitchen] = useState<IKitchen | null>(null);
     const cardContentRef = useRef<HTMLDivElement>(null);
-    const { setIsModuleToKitchenAlertDialogOpen } = useDialogContext();
+    const { setIsModuleToKitchenAlertDialogOpen, setIsOptimalPlaceAlertDialogOpen } = useDialogContext();
 
     const checkAndFetchKitchen = async (kitchenId: string) => {
         try {
@@ -46,6 +47,9 @@ const KitchenPage: React.FC = () => {
                 <div className="border-b">
                     <div className="flex h-12 items-center px-4">
                         <div className="ml-auto flex items-center space-x-4">
+                            <Button onClick={() => setIsOptimalPlaceAlertDialogOpen(true)}>
+                                Расставить подготовленные модули
+                            </Button>
                             <Button onClick={() => setIsModuleToKitchenAlertDialogOpen(true)}>
                                 Добавить модуль
                             </Button>
@@ -68,7 +72,7 @@ const KitchenPage: React.FC = () => {
                                             <HoverCardTrigger><Info className="cursor-pointer" /></HoverCardTrigger>
                                             <HoverCardContent>
                                                 <CardDescription>
-                                                    Добавление модулей происходит 
+                                                    Добавление модулей происходит
                                                     внутри модального окна, которое
                                                     открывается по кнопке Добавить модуль.
                                                     Указываемые координаты являются левым верхним углом модуля
@@ -90,6 +94,7 @@ const KitchenPage: React.FC = () => {
                 </div>
             </div>
 
+            <OptimalPlaceDialog checkAndFetchKitchen={checkAndFetchKitchen} kitchenId={kitchenId || ""} />
             <KitchenModuleDialog checkAndFetchKitchen={checkAndFetchKitchen} kitchenId={kitchenId || ""} />
         </>
 

@@ -230,6 +230,14 @@
             Интерфейс сервиса для проверки условий установки модуля
             </summary>
         </member>
+        <member name="M:Kitchen.Service.Domain.Kitchen.Abstract.IKitchenValidationService.FindOptimalPositions(Kitchen.Service.Domain.Kitchen.Models.KitchenResponse,System.Collections.Generic.List{Kitchen.Service.DataAccess.Models.PlacedModule})">
+            <summary>
+            Поиск оптимальных мест для модулей
+            </summary>
+            <param name="kitchen">Кухня</param>
+            <param name="modules">Модули</param>
+            <returns>Оптимальные места для модулей</returns>
+        </member>
         <member name="M:Kitchen.Service.Domain.Kitchen.Abstract.IKitchenValidationService.ModulesOverlap(Kitchen.Service.DataAccess.Models.PlacedModule,Kitchen.Service.DataAccess.Models.PlacedModule)">
             <summary>
             Проверка пересекаются ли модули между собой
@@ -389,6 +397,11 @@
             </summary>
             <param name="request">Команда удаления кухни</param>
             <param name="cancellationToken">Токен отмены</param>
+        </member>
+        <member name="P:Kitchen.Service.Domain.Kitchen.UseCases.Commands.PlacePreMadeModulesCommand.KitchenId">
+            <summary>
+            Идентификатор кухни
+            </summary>
         </member>
         <member name="T:Kitchen.Service.Domain.Kitchen.UseCases.Commands.UpdateKitchenCommand">
             <summary>

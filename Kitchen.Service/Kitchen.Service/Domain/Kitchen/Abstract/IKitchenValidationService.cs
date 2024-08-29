@@ -9,6 +9,14 @@ namespace Kitchen.Service.Domain.Kitchen.Abstract
     public interface IKitchenValidationService
     {
         /// <summary>
+        /// Поиск оптимальных мест для модулей
+        /// </summary>
+        /// <param name="kitchen">Кухня</param>
+        /// <param name="modules">Модули</param>
+        /// <returns>Оптимальные места для модулей</returns>
+        List<PlacedModule> FindOptimalPositions(KitchenResponse kitchen, List<PlacedModule> modules);
+
+        /// <summary>
         /// Проверка пересекаются ли модули между собой
         /// </summary>
         /// <param name="existingModule">Существующий модуль</param>
